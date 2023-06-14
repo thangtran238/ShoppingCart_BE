@@ -75,10 +75,30 @@ Route::post('/admin-delete/{id}',[PageController::class,'postAdminDelete']);
 
 Route::get('admin-export',[PageController::class,'exportAdminProduct'])->name('export');
 
+Route::get('/register', function () {						
+    return view('users.register');						
+	});						
 
 
+Route::post('register',[UserController::class,'Register']);
 
+Route::get('/login', function () {						
+	 return view('users.login');						
+	});						
+Route::post('/login',[UserController::class,'Login']);
 
+Route::get('/trangchu',[PageController::class,'getIndex']);
+
+Route::get('/logout',[UserController::class,'Logout']);
+
+// Cart
+
+Route::get('add-to-cart/{id}', [PageController::class, 'getAddToCart'])->name('themgiohang');												
+Route::get('del-cart/{id}', [PageController::class, 'getDelItemCart'])->name('xoagiohang');												
+
+Route::get('/', function(){
+    return redirect('/trangchu');
+});
 // Route::get('/',[PageController::class,'marter']);
 
 

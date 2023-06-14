@@ -10,7 +10,8 @@ use App\Models\slide;
 use App\Models\slides;
 use App\Models\type_products;
 use Illuminate\Http\Request;
-
+use App\Models\Cart;
+use Illuminate\Support\Facades\Session;
 class PageController extends Controller
 {
 
@@ -105,4 +106,43 @@ class PageController extends Controller
         $product->save();
         return $this->getIndexAdmin();
     }
+
+
+      public function getAddToCart(Request $req, $id)																				
+      {																				
+        if (Session::has('user')) {																				
+          if (Products::find($id)) {																				
+            $product = Products::find($id);																				
+            $oldCart = Session('cart') ? Session::get('cart') : null;																				
+            $cart = new Cart($oldCart);																				
+            $cart->add($product, $id);																				
+            $req->session()->put('cart', $cart);																				
+            return redirect()->back();																				
+          } else {																				
+            return '<script>alert("Không tìm thấy sản phẩm này.");window.location.assign("/");</script>';																				
+          }																				
+        } else {																				
+          return '<script>alert("Vui lòng đăng nhập để sử dụng chức năng này.");window.location.assign("/login");</script>';																				
+        }																				
+      }																				
+                                                                                                                                                            
+    
+    public function getDelItemCart($id){
+        $oldCart = Session::has('cart')?Session::get('cart'):null;
+        $cart = new Cart($oldCart);
+        $cart->removeItem($id);
+        if(count($cart->items)>0){
+        Session::put('cart',$cart);
+
+        }
+        else{
+            Session::forget('cart');
+        }
+        return redirect()->back();
+    }
+
+
+
+
+
 }
