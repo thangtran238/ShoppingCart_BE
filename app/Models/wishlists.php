@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class wishlists extends Model
 {
-    use HasFactory;
+    use HasFactory; protected $table ='wishlists';
 }
