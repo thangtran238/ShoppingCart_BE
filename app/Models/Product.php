@@ -2,10 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Category;
 
 class Product extends Model
 {
-    // protected $fillable = ['createdAt','name','avatar','quatity,id_type,description'];
-    protected $table ='product';
+    use HasFactory;
+
+    protected $table = "products";
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

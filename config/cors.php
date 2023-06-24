@@ -14,7 +14,12 @@ return [
     | To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
     |
     */
-
+    'driver' => 'cookie',
+    'lifetime' => 120,
+    'expire_on_close' => false,
+    'encrypt' => true,
+    'same_site' => 'lax',
+    'http_only' => true,
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],

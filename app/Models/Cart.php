@@ -18,12 +18,12 @@ class Cart extends Model
       $this->totalPrice = $oldCart->totalPrice;
     }
   }
-  //Them phan tu vao gio hang                 
+  //Them phan tu vao gio hang
   public function add($item, $id, $qty = 1)
   {
     if ($item->promotion_price == 0) {
-      $giohang = ['qty' => 0, 
-                  'price' => $item->unit_price, 
+      $giohang = ['qty' => 0,
+                  'price' => $item->unit_price,
                   'item' => $item];
       if ($this->items) {
         if (array_key_exists($id, $this->items)) {
@@ -49,7 +49,7 @@ class Cart extends Model
       $this->totalPrice += $item->promotion_price * $giohang['qty'];
     }
   }
-  //xóa 1                 
+
   public function reduceByOne($id)
   {
     $this->items[$id]['qty']--;
@@ -60,7 +60,7 @@ class Cart extends Model
       unset($this->items[$id]);
     }
   }
-  //xóa nhiều                 
+
   public function removeItem($id)
   {
     $this->totalQty -= $this->items[$id]['qty'];
